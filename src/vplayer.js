@@ -166,7 +166,7 @@
         addStyle: function(rule) {
             var style = document.createElement("style")
             style.innerHTML = rule
-            document.getElementsByTagName[0].appendChild(style)
+            document.getElementsByTagName('style')[0].appendChild(style)
         },
         show: function() {
             this.dom.show()
@@ -1097,7 +1097,7 @@
     defaultRootUI.addChild(posterUI, '.vWrap')
     defaultRootUI.addChild(centerIcon, '.vWrap')
     defaultRootUI.addChild(controlBar, '.vWrap', UI.insertType.AFTER)
-    defaultRootUI.addStyle("<#=skincss#>")
+    defaultRootUI.addStyle('<#=skincss#>')
 
     VPlayer.addSkin(defaultRootUI)
 
