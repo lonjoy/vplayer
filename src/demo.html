@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>VPlayer demo - for moblie device</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style>
+    #vcontainer {
+        width: 240px;
+        height: 320px;
+        margin: auto; 
+        background-color: #1d515c;
+    }
+    </style>
+</head>
+<body>
+    <div id="vcontainer"></div>
+</body>
+<script>
+    <#=zepto#>
+    <#=vplayer#>
+</script>
+<script>
+    $(function() {
+        var longVideoURL = 'http://www.weishi.com/api/videoUrl.php?id=2002058107032686&vid=1008_89b0aa6338574f09a0b33c80ef7acb9f&sid=ffccc422098fd4fe58d218bd6e233b47'
+
+        var v = $('#vcontainer').VPlayer(longVideoURL, {
+            title: '《一千年以后》',
+            autoPlay: false,
+            poster: 'http://ugc.qpic.cn/weishi_pic/0/1008_89b0aa6338574f09a0b33c80ef7acb9f_1/480',
+            displayInline: true,
+            controlAutoHide: true,
+            controlHideDelay: 8000,
+            backgroundColor: '#222'
+        })
+    })
+</script>
+</html>

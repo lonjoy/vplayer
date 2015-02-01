@@ -1,0 +1,185 @@
+.videoBox * {margin:0;padding:0;-webkit-user-select: none;user-select: none;}
+.videoBox table{border-collapse:collapse;border-spacing:0}
+.videoBox img{border:0; vertical-align:top}
+.videoBox address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}
+.videoBox ol,ul{list-style:none}
+.videoBox caption,th{text-align:left}
+.videoBox h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+.videoBox input,textarea,select,button{outline:none;resize:none;font:16px/1.5 Helvetica,Arial,sans-serif}
+.videoBox button{line-height:1.231;white-space:nowrap;vertical-align:middle;cursor:pointer}
+.videoBox strong{font-weight:800}
+.videoBox a, img {-webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */}
+.videoBox a{text-decoration:none;outline:none;cursor:pointer; color:#19799D; -webkit-tap-highlight-color:transparent; -webkit-user-select: none; -webkit-focus-ring-color:transparent;}
+.videoBox a:active{text-decoration:underline;outline:none;-webkit-tap-highlight-color:transparent;}
+.videoBox .taplink{-webkit-tap-highlight-color:transparent;}
+.videoBox .clear:after{content:'.';clear:both;display:block;height:0;visibility:hidden;line-height:0}
+@font-face {
+    font-family: 'icovideo';
+    src:url(data:font/ttf;base64,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) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.videoBox [class^="icon-"], .videoBox [class*=" icon-"] {font-family: 'icovideo';speak: none; font-style: normal; font-weight: normal;font-variant: normal;text-transform: none; line-height: 1;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+
+.videoBox .icon-play:before {content: "\e600";}
+
+.videoBox .icon-quanping:before {content: "\e601";}
+
+.videoBox .icon-suoxiao:before {content: "\e602";}
+
+.videoBox .icon-zanting:before {content: "\e603";}
+
+.videoBox{ position: relative; width: 100%; height: 100%; text-align:center; overflow: hidden; background: #333}
+
+.videoBox .btnPlay {
+    width: 76px;
+    height: 76px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -38px 0 0 -38px;
+    border-radius: 80px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    border: 3px solid #FFF;
+    background-clip: padding-box;
+    z-index: 3
+}
+
+.videoBox .loadingPercent {
+    background: rgba(0, 0, 0, 0.5);
+    background-clip: padding-box;
+    border: 3px solid #FFF;
+}
+
+.videoBox .btnPlay em{
+    display:block; position:absolute; color:#fff;
+}
+
+.videoBox .btnPlay .icon-play{
+    color:#fff;
+    text-align:center;
+    font-size:40px;
+    left:3px;
+    top:0;
+    width:100%;
+    height:100%;
+    line-height:76px;
+    text-shadow:0 1px 1px rgba(0,0,0,.3);
+}
+
+.videoBox .btnPlay .percent
+{
+    width:100%; text-align:center; height:100%; line-height:58px;
+}
+
+.videoBox .btnPlay .verror{
+    width: 10px;
+    height: 30px;
+    display: block;
+    background-color:#fff;
+    left:33px;
+    top:23px; border-radius:5px;
+
+}
+
+.videoBox .btnPlay .vloading{
+    width:10px;
+    height:10px;
+    border-radius:10px;
+    background-color:#fff;
+    left:10px;
+    top:32px;
+    -webkit-animation:loadinganm 1.5s linear infinite;
+    -webkit-transform-style:preserve-3d;
+}
+
+@-webkit-keyframes loadinganm{
+    0%{-webkit-transform:translate(-5px,0px);opacity:0.5}
+    25%{-webkit-transform:translate(20px,0px);opacity:1}
+    50%{-webkit-transform:translate(50px,0px);opacity:0.5;}
+    75%{-webkit-transform:translate(20px,0px);opacity:0.2;}
+    100%{-webkit-transform:translate(-5px,0px);opacity:0.5}
+}
+
+.videoBox .btnPlay .rond{
+    width:80px;
+    height:80px;
+    border-radius:80px;
+    border:0px solid #f00;
+    left:-2px;
+    top:-2px;
+    -webkit-animation:rond 1.5s ease-in-out infinite;
+    -webkit-transform-origin:50% 50%;
+    -webkit-transform-style:preserve-3d;
+}
+@-webkit-keyframes rond{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+.videoBox .rond i{width:8px; position: absolute;
+    height:8px; display: block;
+    border-radius:8px; left:45px; top:10px;
+    background-color:#fff;}
+
+@-webkit-keyframes titleSlideUp{
+    0%{-webkit-transform:translateY(0);}
+    100%{-webkit-transform:translateY(-52px);}
+}
+@-webkit-keyframes titleSlideDown{
+    0%{-webkit-transform:translateY(-52px);}
+    100%{-webkit-transform:translateY(0);}
+}
+
+@-webkit-keyframes controlSlideUp{
+    0%{-webkit-transform:translateY(52px);}
+    100%{-webkit-transform:translateY(0);}
+}
+@-webkit-keyframes controlSlideDown{
+    0%{-webkit-transform:translateY(0);}
+    100%{-webkit-transform:translateY(52px);}
+}
+
+.videoBox .vWrap{ position: relative; width: 100%;height:100%; margin: 0 auto; overflow: hidden;}
+
+.videoBox .videoImg{position: absolute; z-index: 2; left: 0; top: 0; width: 100%; height: 100%}
+.videoBox .vWrap video{position: absolute; z-index: 1;left: 0; top: 0;}
+
+
+.videoBox .videotitle{position: absolute; top: 0; left:0; width: 100%; height: 52px; background:rgba(33, 33, 33,.8); z-index: 9; color: #fff;font-size: 1em; line-height: 32px; text-align: left; text-indent: 1em;}
+.videoBox .videotitle{display: inline-block; height: 52px; line-height: 52px;}
+.videoBox .titleAnimHide{-webkit-animation:titleSlideUp .5s ease-in;
+    -webkit-animation-fill-mode:forwards;
+}
+.videoBox .titleAnimShow{-webkit-animation:titleSlideDown .3s ease-in;
+    -webkit-animation-fill-mode:forwards;
+}
+.videoBox .controlAnimShow{-webkit-animation:controlSlideUp .3s ease-in;
+    -webkit-animation-fill-mode:forwards;
+}
+.videoBox .controlAnimHide{-webkit-animation:controlSlideDown .5s ease-in;
+    -webkit-animation-fill-mode:forwards;
+}
+
+.videoBox .controllBar{ position: absolute; bottom: 0; left:0; width: 100%; height: 52px; background:rgba(33, 33, 33,.8); z-index: 9; color: #fff;font-size: 1.5em}
+.videoBox .icon-play,.videoBox .icon-zanting{ float: left; line-height: 52px; width: 52px; text-align: center;}
+.videoBox .icon-quanping,.videoBox .icon-suoxiao{float: right; line-height: 52px; width: 52px;}
+.videoBox .progress{ height:100%; margin: 0 110px 0 110px; position: relative; overflow: visible;}
+.videoBox .hasplaytime,.totaltime{ position: absolute; font-size:12px; top: 33%;}
+.videoBox .hasplaytime{left: -50px;}
+.videoBox .totaltime{right: -50px; }
+.videoBox .progressbar{
+    background:#21BEC5;
+    height: 2px;
+    position: absolute;
+    top: 48%;
+}
+.videoBox .progressbarTween {
+    transition-property: width;
+    transition-duration: .25s;
+    transition-timing-function: linear;
+}
+.videoBox .progressbarbg{background:#FFF; height: 2px; position: absolute; top: 48%; width: 100%}
+.videoBox .playcircle{ background:#21BEC5; width: 10px; height: 10px; border-radius: 10px;position: absolute; right: -5px; top: -4px}   
