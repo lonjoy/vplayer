@@ -12,9 +12,24 @@
 
     //=============================================================================
     // VPlayer 内部依赖
+    // 
+    // 
+    
+    // 当前平台
+    var PF_DESKTOP = 0,
+        PF_MOBILE = 1,
+        pf = ($.os.ios || $.os.android) ? PF_MOBILE: PF_DESKTOP
 
     // 用户操作事件
-    var UEvent = {
+    var UDeskTopEvent = {
+        TOUCH_START: 'mousedown',
+        TOUCH_MOVE: 'mousemove',
+        TOUCH_END: 'mouseup',
+        MOUSE_ENTER: 'mouseenter',
+        MOUSE_LEAVE: 'mouseleave',
+        TAP: 'click'
+    },
+    UMobileEvent = {
         TOUCH_START: 'touchstart',
         TOUCH_MOVE: 'touchmove',
         TOUCH_END: 'touchend',
@@ -23,7 +38,8 @@
         SWIPE: 'swipe',
         SWIPE_LEFT: 'swipeLeft',
         SWIPE_RIGHT: 'swipeRight'
-    }
+    },
+    UEvent = pf ? UMobileEvent: UDeskTopEvent
 
     // video 默认事件
     var VEEvent = {
@@ -983,7 +999,12 @@
             e.preventDefault()
 
             if (video[0][VEProp.READY_STATE] !== readyState.HAVE_NOTHING) {
-                var x = e.targetTouches[0].clientX - (self.dom.offset().left - $('body').scrollLeft()),
+                if (pf === PF_DESKTOP && !uiVar.seekEnabled) {
+                    return
+                }
+
+                var clientX = e.clientX || e.targetTouches[0].clientX,
+                    x = clientX - (self.dom.offset().left - $('body').scrollLeft()),
                     progress = x / $(this).width()
 
                 if (progress > 1) {
@@ -1026,7 +1047,8 @@
         // 点击进度条
         this.dom.on(UEvent.TOUCH_START, function(e) {
             if (video[0][VEProp.READY_STATE] !== readyState.HAVE_NOTHING) {
-                var x = e.targetTouches[0].clientX - (self.dom.offset().left - $('body').scrollLeft()),
+                var clientX = e.clientX || e.targetTouches[0].clientX,
+                    x = clientX - (self.dom.offset().left - $('body').scrollLeft()),
                     progress = x / $(this).width()
 
                 if (progress > 1) {
@@ -1042,6 +1064,11 @@
                     progress: progress,
                     currentTime: progress * video[0][VEProp.DURATION]
                 }
+
+                if (pf === PF_DESKTOP) {
+                    uiVar.seekEnabled = true
+                }
+            
                 video[0][VEProp.CURRENT_TIME] = uiVar.seeking.currentTime
             }
         })
@@ -1058,6 +1085,10 @@
 
                 if (uiVar.seeking.hasPaused) {
                     video[0].play()
+                }
+
+                if (pf === PF_DESKTOP) {
+                    delete uiVar.seekEnabled
                 }
 
                 setTimeout(function() {
