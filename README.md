@@ -9,4 +9,4 @@ usage
 
 demo
 --------
-demoURL:[http://roryluo.info/h5/vplayerdemo.html](http://roryluo.info/h5/vplayerdemo.html)
+demoURL:[http://roryluo.info/h5/demo.html](http://roryluo.info/h5/demo.html)
