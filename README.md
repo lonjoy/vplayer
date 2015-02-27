@@ -7,7 +7,7 @@ usage
 2. $(selector).VPlayer(opts);
 3. opts对象请参考src/demo.html;
 4. 默认的opts：
-
+    
     {
         title: '',                  // 视频标题
         width: '100%',
