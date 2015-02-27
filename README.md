@@ -7,8 +7,8 @@ usage
 2. $(selector).VPlayer(opts);
 3. opts对象请参考src/demo.html;
 4. 默认的opts：
-    
-    {
+
+    \{
         title: '',                  // 视频标题
         width: '100%',
         height: '100%',
@@ -22,7 +22,7 @@ usage
         poster: '',                 // 封面URL
         controlAutoHide: true,      // 是否自动隐藏标题栏、控制条
         controlHideDelay: 7000      // 标题栏、控制条隐藏延迟
-    }
+    \}
 
 demo
 --------
