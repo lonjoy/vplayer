@@ -4,6 +4,8 @@
 
 ;(function($){
 
+    'use strict';
+
     //=============================================================================
     // VPlayer 外部依赖
 
@@ -12,8 +14,6 @@
 
     //=============================================================================
     // VPlayer 内部依赖
-    // 
-    // 
     
     // 当前平台
     var PF_DESKTOP = 0,
@@ -180,7 +180,7 @@
             throw this.name + UI.exception.NO_INIT
         },
         addStyle: function(rule) {
-            var style = document.createElement("style")
+            var style = document.createElement('style')
             style.innerHTML = rule
             document.getElementsByTagName('style')[0].appendChild(style)
         },
@@ -197,7 +197,7 @@
          * @param instertType {UI.insertType}
          */
         addChild: function(ui, selector, instertType) {
-            var instertType = instertType || UI.insertType.APPEND
+            instertType = instertType || UI.insertType.APPEND
 
             if (!ui || !(ui instanceof UI)) {
                 throw 'UI.prototype.addChild需要UI对象'
@@ -239,14 +239,16 @@
 
                     if (ui.children.__length > 0) {
                         for(var name in ui.children) {
-                            if (returnVal) {
-                                break
-                            }
-                            if (name === '__length') {
-                                continue
-                            }
+                            if (ui.children.hasOwnProperty(name)) {
+                                if (returnVal) {
+                                    break
+                                }
+                                if (name === '__length') {
+                                    continue
+                                }
 
-                            iter(ui.children[name])
+                                iter(ui.children[name])
+                            }
                         }
                     }
 
@@ -423,13 +425,13 @@
 
             // Attribute
             var attr = {}
-            attr['width'] = this.options.width
-            attr['height'] = this.options.height
-            attr['preload'] = this.options.preload
-            attr['src'] = this.vURL
+            attr.width = this.options.width
+            attr.height = this.options.height
+            attr.preload = this.options.preload
+            attr.src = this.vURL
 
             if (this.options.autoPlay) {
-                attr['autoplay'] = ''
+                attr.autoplay = ''
             }
 
             if (this.options.displayInline) {
@@ -437,7 +439,7 @@
             }
 
             if (this.options.controls) {
-                attr['controls'] = ''
+                attr.controls = ''
             }
 
             this.video.attr(attr)
@@ -509,7 +511,7 @@
                 bottom: ''
             })
 
-            document['webkitCancelFullScreen']()
+            document.webkitCancelFullScreen()
         }
         else {
             this.dom.css({
@@ -522,7 +524,7 @@
                 bottom: 0
             })
 
-            this.dom[0]['webkitRequestFullScreen']()
+            this.dom[0].webkitRequestFullScreen()
         }
     }
 
@@ -925,8 +927,9 @@
 
     progressBar.formatTime = function(seconds) {
         var duration = parseInt(seconds),
-            minutes = parseInt(duration / 60).toString(),
-            seconds = parseInt(duration % 60).toString()
+            minutes = parseInt(duration / 60).toString()
+        seconds = parseInt(duration % 60).toString()
+
         if (minutes.length === 1) {
             minutes = '0' + minutes
         }
@@ -947,7 +950,7 @@
     }
 
     progressBar.setDuration = function(duration) {
-        var duration = isNaN(duration) ? 0 : duration
+        duration = isNaN(duration) ? 0 : duration
         this.dom.find('.totaltime').text(progressBar.formatTime(duration))
     }
 
@@ -956,10 +959,9 @@
     }
 
     progressBar.setProgress = function(progress) {
-
         // 修正小圆点位置
         var positionFix = 0.00
-        var progress = isNaN(progress) ? 0 : parseFloat(progress)
+        progress = isNaN(progress) ? 0 : parseFloat(progress)
         progress += positionFix
         progress *= 100
         progress = progress + '%'
@@ -1142,9 +1144,11 @@
 
         // 合并data-* 与options参数，options优先
         for (var dataKey in VPlayer.prototype.defaultOpts) {
-            domData = VPlayer.prototype.defaultOpts[dataKey]
-            if (domData !== undefined && options[dataKey] === undefined) {
-                options[dataKey] = domData
+            if (VPlayer.prototype.defaultOpts.hasOwnProperty(dataKey)) {
+                domData = VPlayer.prototype.defaultOpts[dataKey]
+                if (domData !== undefined && options[dataKey] === undefined) {
+                    options[dataKey] = domData
+                }
             }
         }
 

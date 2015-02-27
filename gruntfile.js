@@ -6,9 +6,6 @@ module.exports = function(grunt) {
       options: {
         jshintrc: '.jshintrc'
       },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      },
       build: {
         src: 'src/*.js'
       }
@@ -93,7 +90,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean')
 
   // Default task
-  grunt.registerTask('default', [ /*'jshint',*/ 'concat', 'cssmin', 'uglify', 'addskincss', 'demopage', 'clean:temporary'])
+  grunt.registerTask('default', ['jshint', 'concat', 'cssmin', 'uglify', 'addskincss', 'demopage', 'clean:temporary'])
 
   // Dev task
 

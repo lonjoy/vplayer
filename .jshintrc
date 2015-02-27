@@ -1,15 +1,54 @@
 {
-  "asi"      : true,
-  "boss"     : true,
-  "browser"  : true,
-  "curly"    : false,
-  "debug"    : true,
-  "devel"    : true,
-  "eqeqeq"   : false,
-  "eqnull"   : true,
-  "expr"     : true,
-  "laxbreak" : true,
-  "laxcomma" : true,
-  "validthis": true,
-  "multistr" : true
+  "maxerr"        : false,    // {int} 多少个错误后停止
+
+  // Enforcing
+  "curly"         : true,     // true: 每一个语句块都要使用花括号
+  "eqeqeq"        : true,     // true: 比较语句使用全等符号
+  "forin"         : true,     // true: for..in循环中必须使用obj.hasOwnProperty()过滤
+  "freeze"        : true,     // true: 禁止覆写原生对象的方法
+  "funcscope"     : true,     // true: 警告在花括号外使用花括号内声明的变量
+  "latedef"       : true,     // true: 变量、函数先定义再使用
+  "newcap"        : true,     // true: 构造函数首字母大写
+  "noarg"         : true,     // true: 禁止使用`arguments.caller` & `arguments.callee`
+  "quotmark"      : "single", // false, true, single, double 单双引号
+  "undef"         : true,     // true: 非全局变量必须声明
+  "strict"        : true,     // true: 所有函数都遵守ES5 Strict Mode
+  "maxparams"     : 6,        // {int} 一个函数允许的最大参数数量
+  "maxlen"        : 120,      // {int} 每行最大字符数
+
+  // Relaxing
+  "asi"           : true,      // true: 语句结尾可以没有分号
+  "eqnull"        : false,     // true: Tolerate use of `== null`
+  "es5"           : false,     // true: Allow ES5 syntax (ex: getters and setters)
+  "esnext"        : false,     // true: Allow ES.next (ES6) syntax (ex: `const`)
+  "moz"           : false,     // true: Allow Mozilla specific syntax (extends and overrides esnext features)
+                               // (ex: `for each`, multiple try/catch, function expression…)
+  "evil"          : false,     // true: Tolerate use of `eval` and `new Function()`
+  "expr"          : true,      // true: Tolerate `ExpressionStatement` as Programs
+  "funcscope"     : false,     // true: Tolerate defining variables inside control statements
+  "globalstrict"  : false,     // true: Allow global "use strict" (also enables 'strict')
+  "iterator"      : false,     // true: Tolerate using the `__iterator__` property
+  "lastsemic"     : true,      // true: Tolerate omitting a semicolon for the last statement of a 1-line block
+  "laxbreak"      : true,      // true: Tolerate possibly unsafe line breakings
+  "laxcomma"      : true,      // true: Tolerate comma-first style coding
+  "loopfunc"      : false,     // true: Tolerate functions being defined in loops
+  "multistr"      : true,      // true: Tolerate multi-line strings
+  "noyield"       : false,     // true: Tolerate generator functions with no yield statement in them.
+  "notypeof"      : false,     // true: Tolerate invalid typeof operator values
+  "proto"         : false,     // true: Tolerate using the `__proto__` property
+  "scripturl"     : false,     // true: Tolerate script-targeted URLs
+  "shadow"        : false,     // true: Allows re-define variables later in code e.g. `var x=1; x=2;`
+  "sub"           : false,     // true: Tolerate using `[]` notation when it can still be expressed in dot notation
+  "supernew"      : false,     // true: Tolerate `new function () { ... };` and `new Object;`
+  "validthis"     : false,     // true: Tolerate using this in a non-constructor function
+
+  // Environments
+  "browser"       : true,     // Web Browser (window, document, etc)
+  "devel"         : true,     // Development/debugging (alert, confirm, etc)
+
+  // Custom Globals
+  // additional predefined global variables
+  "globals"       : {
+    "Zepto": true
+  }
 }
