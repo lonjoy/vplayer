@@ -959,13 +959,43 @@
     }
 
     progressBar.setProgress = function(progress) {
-        // 修正小圆点位置
         var positionFix = 0.00
         progress = isNaN(progress) ? 0 : parseFloat(progress)
         progress += positionFix
         progress *= 100
         progress = progress + '%'
         this.dom.find('.progressbar').css('width', progress)
+    }
+
+    progressBar.setBuffersLoadedRange = function(buffers, duration) {
+        if (isNaN(duration)) {
+            return
+        }
+
+        var len = buffers.length,
+            gradientValue = ['-webkit-linear-gradient(0'],
+            defaultColor = '#FFF',
+            bufferColor = '#AAA',
+            start, end
+
+        if (len > 0) {
+            for (var i = 0; i < len; i++) {
+                start = (buffers.start(i) / duration) * 100 + '%'
+                end = (buffers.end(i) / duration) * 100 + '%'
+
+                gradientValue.push(defaultColor + ' ' + start)
+                gradientValue.push(bufferColor  + ' ' + start)
+                gradientValue.push(bufferColor  + ' ' + end)
+                gradientValue.push(defaultColor + ' ' + end)
+            }
+
+            gradientValue = gradientValue.join(',') + ')'
+        }
+        else {
+            gradientValue = ''
+        }
+
+        this.dom.find('.progressbarbg').css('background-image', gradientValue)
     }
 
     progressBar.addVEEventHandler(function(player, video, uiVar) {
@@ -980,6 +1010,7 @@
 
                 self.setCurrentTime(currentTime)
                 self.setProgress(currentTime / duration)
+                self.setBuffersLoadedRange(video[0][VEProp.BUFFERED], duration)
             }
         })
 
