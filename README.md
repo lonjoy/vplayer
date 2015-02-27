@@ -1,7 +1,7 @@
 # vplayer
 移动端HTML5视频播放器
 
-useage
+usage
 --------
 1. 页面中引入Zepto.js以及vplayer.min.js;
 2. $(selector).VPlayer(opts);
