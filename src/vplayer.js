@@ -530,6 +530,12 @@
 
     defaultRootUI.addUIEventHandler(function(player, skin, video, uiVar) {
         var self = this
+
+        video.on(VEEvent.TAP, function(e) {
+            
+        //     skin.getChild('title').animateHide(uiVar)
+        //     skin.getChild('controlBar').animateHide(uiVar)
+        })
     })
 
     defaultRootUI.init = function(vplayer) {
