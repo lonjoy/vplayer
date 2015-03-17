@@ -1252,7 +1252,7 @@
             }
         }
 
-        setTimeout(function() {
+        !TimerBiz.timer && setTimeout(function() {
             TimerBiz.start()
         }, 0)
 
