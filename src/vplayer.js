@@ -299,15 +299,80 @@
         }
     }
 
-    function Command(group, name, handler) {
-        this.group = group || 'default'
+    function TimerBiz(name, bizFunc, loopTimes, delay) {
         this.name = name
-        this.handler = handler
+        this.bizFunc = bizFunc
+        this.loopTimes = loopTimes
+        this.delay = delay
+        this.runTimes = 0
+        this.createTime = 0
     }
 
-    Command.exception = {
-        NO_GROUP: 'command group 不存在',
-        NO_COMMAND: 'command 不存在'
+    TimerBiz.delay = 100
+    TimerBiz.timer = 0
+    TimerBiz.spendTime = 0
+    TimerBiz.queue = []
+
+    TimerBiz.start = function() {
+        var timer = TimerBiz.timer
+        if (timer) {
+            clearTimeout(timer)
+        }
+
+        var logic = function() {
+            var finishedBizName = []
+            TimerBiz.spendTime += TimerBiz.delay
+
+            for (var i = 0; i < TimerBiz.queue.length; i++) {
+                var biz = TimerBiz.queue[i],
+                    bizSpendTime = biz.createTime + biz.runTimes * biz.delay,
+                    deveation = TimerBiz.spendTime % bizSpendTime
+
+                if (bizSpendTime === 0 || deveation === 0 || deveation >= biz.delay) {
+                    if (~biz.loopTimes && biz.runTimes >= biz.loopTimes) {
+                        finishedBizName.push(biz.name)
+                        continue
+                    }
+
+                    biz.bizFunc()
+                    biz.runTimes++
+                }
+            }
+
+            TimerBiz.remove(finishedBizName)
+            TimerBiz.timer = setTimeout(function() {
+                logic()
+            }, TimerBiz.delay)
+        }
+
+        logic()
+    }
+
+    TimerBiz.stop = function() {
+        clearTimeout(TimerBiz.timer)
+        TimerBiz.timer = 0
+        TimerBiz.spendTime = 0
+        TimerBiz.queue.length = 0
+    }
+
+    TimerBiz.add = function(name, bizFunc, loopTimes, delay) {
+        var biz = new TimerBiz(name, bizFunc, loopTimes, delay)
+        biz.createTime = TimerBiz.spendTime
+        TimerBiz.queue.push(biz)
+    }
+
+    TimerBiz.remove = function(name) {
+        var biz,
+            newQueue = []
+
+        for (var i = 0; i < TimerBiz.queue.length; i++) {
+            biz = TimerBiz.queue[i]
+            if (name !== biz.name && !~name.indexOf(biz.name)) {
+                newQueue.push(biz)
+            }
+        }
+
+        TimerBiz.queue = newQueue
     }
 
     //=============================================================================
@@ -326,9 +391,6 @@
         this.options = this.defaultOpts
         this.video
         this.skin
-
-        // 命令共享变量
-        this.commandVar = {}
 
         // UI共享变量
         this.uiVar = {}
@@ -528,15 +590,10 @@
         }
     }
 
-    defaultRootUI.addUIEventHandler(function(player, skin, video, uiVar) {
-        var self = this
-
-        video.on(VEEvent.TAP, function(e) {
-            
-        //     skin.getChild('title').animateHide(uiVar)
-        //     skin.getChild('controlBar').animateHide(uiVar)
-        })
-    })
+    // TODO: 这里为什么会报错？
+    // defaultRootUI.addUIEventHandler(function(player, skin, video, uiVar) {
+    //     var self = this
+    // })
 
     defaultRootUI.init = function(vplayer) {
         // 全屏
@@ -1008,16 +1065,12 @@
         var self = this
 
         video.on(VEEvent.TIME_UPDATE, function(e) {
-            // 在没有点击、拖动进度条时才自动更新进度
-            if (!uiVar.seeking) {
-                var el = video[0],
-                    currentTime = el[VEProp.CURRENT_TIME],
-                    duration = el[VEProp.DURATION]
+            var el = video[0],
+                currentTime = el[VEProp.CURRENT_TIME],
+                duration = el[VEProp.DURATION]
 
-                self.setCurrentTime(currentTime)
-                self.setProgress(currentTime / duration)
-                self.setBuffersLoadedRange(video[0][VEProp.BUFFERED], duration)
-            }
+            self.setCurrentTime(currentTime)
+            self.setProgress(currentTime / duration)
         })
 
         video.on(VEEvent.ENDED, function(e) {
@@ -1028,6 +1081,16 @@
         video.on(VEEvent.DURATION_CHANGE, function(e) {
             self.setDuration(video[0][VEProp.DURATION])
         })
+
+        TimerBiz.add('updateBuffersLoadedRange', function() {
+            // 在没有点击、拖动进度条时才自动更新进度
+            if (!uiVar.seeking) {
+                var el = video[0],
+                    duration = el[VEProp.DURATION]
+  
+                self.setBuffersLoadedRange(video[0][VEProp.BUFFERED], duration)
+            }
+        }, -1, 100)
     })
 
     progressBar.addUIEventHandler(function(player, skin, video, uiVar) {
@@ -1188,6 +1251,10 @@
                 }
             }
         }
+
+        setTimeout(function() {
+            TimerBiz.start()
+        }, 0)
 
         var vplayers = []
 
