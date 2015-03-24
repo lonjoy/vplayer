@@ -1198,6 +1198,7 @@
                 }, 0)
             }
         })
+        
     })
 
     progressBar.init = function(vplayer) {
@@ -1206,24 +1207,9 @@
         this.setProgress(0)
     }
 
-    //---------------------------------------------------------------浮层
 
-    //var tips = new UI('tips', '<div class="tips"></div>', '\
-    //    width: 30%;height: 24%; background-color: rgba(33, 33, 33,.8);\
-    //    z-index: 4; top: 35%; left: 33%; position: absolute; \
-    //    border-radius: 5px; color: #fff; line-height: 100%;'
-    //    , false)
-    //
-    //tips.addUIEventHandler(function(player, skin, video, uiVar) {
-    //    var self = this
-    //
-    //    // 拖动进度条
-    //    this.dom.on(UEvent.TOUCH_MOVE, function(e) {
-    //
-    //    })
-    //})
-    //
-    //tips.init = function(vplayer) {}
+    //=============================================================================
+    // 拼模板
 
     controlBar.addChild(progressBar)
     defaultRootUI.addChild(titleUI, '.vWrap', UI.insertType.BEFORE)
